@@ -1,7 +1,6 @@
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
-import mongoose from 'mongoose';
 import { User } from '../models/user.model.js'
 
 const createNewUser = asyncHandler(async (req, res) => {
@@ -88,9 +87,23 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 })
 
 const deleteUser = asyncHandler(async (req, res) => {
-    return await User.deleteOne({
+    const deleteResponse = await User.deleteOne({
         _id: req.params.id
     });
+
+    if(!deleteResponse){
+        throw new ApiError(500, "Problem in deleting user");
+    }
+
+    if(deleteResponse.deletedCount === 0){
+        throw new ApiError(404, "No user found");
+    }
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200, deleteResponse, "User deleted successfully")
+    );
 })
 
 export { 
