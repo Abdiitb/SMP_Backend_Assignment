@@ -18,4 +18,10 @@ import userRouter from './routes/user.route.js';
 // Routes Declaration
 app.use('/api/v1', userRouter);
 
+// Admin Routes Import
+import adminRouter from './routes/admin.route.js';
+
+// Admin Routes Declaration
+app.use('/api/v1/admin', adminRouter);
+
 export { app };
