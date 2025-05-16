@@ -1,16 +1,18 @@
-async function useFetchAllUsers() {
-    try {
-        const response = await fetch('/api/v1/users');
-        if(response.status === 200){
-            const json = await response.json();
-            return json.data; 
-        } else {
-            throw new Error("Error fetching all users data, Response Status : ", response.statusCode);
-        }
-    } catch (error) {
-        console.error("Error fetching users : ", error);
-        return error.message;
-    }
+import { useEffect, useState } from "react";
+
+function useFetchAllUsers() {
+    const  [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('/api/v1/users')
+        .then((res) => res.json())
+        .then((res) => setData(res.data))
+        .catch((error) => console.error(error.message))
+
+        console.log("data : ", data)
+    }, [])
+
+    return data;
 }
 
 export default useFetchAllUsers;
