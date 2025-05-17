@@ -5,6 +5,8 @@ export const UserContext = createContext({
     setShowAllUsers: () => {},
     showAllAdminUsers: null,
     setShowAllAdminUsers: () => {},
+    loggedIn: null,
+    setLoggedIn: () => {},
     // allUserData: null,
     // setAllUserData: () => {},
     // adminUsersData: null,
